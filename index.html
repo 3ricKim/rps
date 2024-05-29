@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    function getComputerChoice() {
-        let num = Math.random()
-        if (num < 1/3) {
-            return "rock"
-        } else if (num < 2/3) {
-            return "paper"
-        } else {
-            return "scissors"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+
+    <script>
+        function getComputerChoice() {
+            let num = Math.random()
+            if (num < 1/3) {
+                return "rock"
+            } else if (num < 2/3) {
+                return "paper"
+            } else {
+                return "scissors"
+            }
         }
-    }
 
-    function getHumanChoice() {
-        let userInput = prompt("Enter rock, paper, or scissors:")
-        userInput = userInput.toLowerCase()
-        while (userInput != "rock" && userInput != "paper" && userInput != "scissors") {
-            userInput = prompt("Please try again")
+        function getHumanChoice() {
+            const rock = document.querySelector("#rock");
+            const paper = document.querySelector("#paper");
+            const scissors = document.querySelector("#scissors");
+
+            rock.addEventListener("click", () => {
+                let computerSelection = getComputerChoice();
+
+                playRound("rock", computerSelection)
+                console.log(computerSelection)
+            });        
+            paper.addEventListener("click", () => {
+                let computerSelection = getComputerChoice();
+
+                playRound("paper", computerSelection);
+            });    
+            scissors.addEventListener("click", () => {
+                let computerSelection = getComputerChoice();
+
+                playRound("scissors", computerSelection);
+            });
         }
-        return userInput
-    }
 
-    
-
-    
-
-    function playGame() {
+        
         let humanScore = 0
         let computerScore = 0
 
@@ -52,21 +73,8 @@
                 computerScore++
             }
         }
-        for (let i = 0; i < 5; i++) {
-            let humanSelection = getHumanChoice();
-            let computerSelection = getComputerChoice();
-            playRound(humanSelection, computerSelection)
-        }
-        if (humanScore > computerScore) {
-            console.log("FINAL: Human wins")
-        } else if (humanScore < computerScore) {
-            console.log("FINAL: computer wins")
-        } else {
-            console.log("FINAL: It's a tie")
-        }
-    }
-
-    playGame()
-
-</script>
+        getHumanChoice();
+        
+    </script>
+</body>
 </html>
